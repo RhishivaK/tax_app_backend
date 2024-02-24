@@ -31,6 +31,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'autho.app.AuthoConfig',
+    'rest_framework',
+    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,6 +45,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -50,6 +54,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'tax_app_backend.urls'
+CORS_ORIGIN_ALLOW_ALL =True
 
 TEMPLATES = [
     {
@@ -75,8 +80,14 @@ WSGI_APPLICATION = 'tax_app_backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'mssql',
+        'NAME': 'Tax_App',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': 'DESKTOP-5SHKHN7',
+        'OPTIONS': {
+            'driver': 'ODBC Driver 17 for SQL Server',
+        }
     }
 }
 
@@ -99,6 +110,14 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+REST_FRAMEWORK ={
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication'
+    ]
+}
+
+AUTH_USER_MODEL = 'autho.User'
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/

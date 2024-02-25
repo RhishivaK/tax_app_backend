@@ -8,6 +8,16 @@ from rest_framework.decorators import api_view
 from .models import *
 from .serializers import *
 
+@api_view(['GET'])
+def GetRegisteredUser(request, *args, **kwargs):
+    email = request.GET.get('email', None)
+    user = User.objects.filter(email=email)
+
+    if user.exists():
+        return JsonResponse({'exists': True})
+    
+    else:
+        return JsonResponse({'exists': False})
 
 @api_view(['POST'])
 def UserRegister(request, *args, **kwargs):
@@ -38,10 +48,11 @@ def UserLogin(request, *args, **kwargs):
     try:
         user_creds = User.objects.get(email=data['email'])
         user_login = UserSerializer(user_creds).data
+        print(user_login, "=========")
     except User.DoesNotExist:
         return Response({'Error': 'Invalid User Details'}, status=status.HTTP_401_UNAUTHORIZED)
     
-    if check_password(data['password'], user_creds.password) and user_login.role == "user":
+    if check_password(data['password'], user_creds.password) and user_creds.role == "user":
         user = authenticate(request, **data)
         if user is not None:
             login(request, user)

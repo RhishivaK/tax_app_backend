@@ -6,3 +6,7 @@
 backend/localsettings.py
 **.pyc
 **.cfg
+.env
+env
+count
+__pycache__

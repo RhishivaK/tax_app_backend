@@ -25,7 +25,7 @@ class UserViewSet(viewsets.ViewSet):
             user = User.objects.get(pk=pk)
         except User.DoesNotExist:
             return response.not_found('user not found')
-        serializer = UserUpdateSerializer(data=request.data, instance=User)
+        serializer = UserUpdateSerializer(data=request.data, instance=user)
         if serializer.is_valid():
             return response.success('user updated', serializer.data)
 

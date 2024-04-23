@@ -23,6 +23,7 @@ class User(AbstractBaseUser):
     pan = models.CharField(max_length=100, unique=True)
     is_staff = models.BooleanField(default=False)
     password = models.CharField(max_length=100)
+    annual_income = models.DecimalField(default=0, max_digits=30, decimal_places=2, null=True, blank=True)
     maritial_status = models.CharField(max_length=20, choices=MARITIAL_STATUS_CHOICES)
     role = models.CharField(max_length=15, choices=ROLE_CHOICES, default='general')
     reward_points = models.DecimalField(default=0, max_digits=10, decimal_places=2)

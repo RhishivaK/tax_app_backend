@@ -23,14 +23,6 @@ class IncomeTaxListAPIView(generics.ListAPIView):
     serializer_class = IncomeTaxRecordSerializer
     page_size_query_param = 'limit'
 
-    def get_queryset(self):
-        pass
-
-
-class IncomeTaxUserViewSet(viewsets.ViewSet):
-    def create(self, request):
-        pass
-
 
 class IncomeTaxUserListAPIView(generics.ListAPIView):
     serializer_class = IncomeTaxRecordSerializer
@@ -62,7 +54,6 @@ class IncomeTaxViewset(viewsets.ViewSet):
             record = IncomeTaxRecord.objects.get(pk=pk)
         except IncomeTaxRecord.DoesNotExist:
             return response.not_found('record not found')
-
         return record
 
     def change_status(self, request, pk):

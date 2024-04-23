@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.hashers import make_password
 
 from utils import response
 
@@ -35,8 +36,9 @@ class AuthViewSet(viewsets.ViewSet):
 
 
     def signup(self, request):
-        serializer = UserSerializer(data=request.data)
+        serializer = SignupSerializer(data=request.data)
         if serializer.is_valid():
+            serializer.validated_data['password'] = make_password(request.data['password'])
             serializer.save()
             return response.success('user successfully registered', serializer.data)
         

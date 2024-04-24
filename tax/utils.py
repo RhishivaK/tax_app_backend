@@ -2,7 +2,7 @@
 def calculate_income_tax(policy, annual_income):
     tax_amount = 0
     taxed_amount = 0
-    for idx, key in enumerate(sorted(policy.keys())):
+    for key in sorted(policy.keys()):
         if not policy[key]['amount']:
             taxable_amount = annual_income - taxed_amount
         else:

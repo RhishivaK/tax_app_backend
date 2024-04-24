@@ -6,7 +6,7 @@ from utils import response
 from users.models import User
 from users.serializers import UserSerializer
 
-from _auth.serializers import LoginSerializer, SignupSerializer, MeSerializer
+from _auth.serializers import LoginSerializer, SignupSerializer
 
 
 from rest_framework import viewsets

@@ -6,7 +6,6 @@ class IncomeTaxPolicyCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = IncomeTaxPolicy
         fields = '__all__'
-        # depth = 1
 
 class IncomeTaxPolicySerializer(serializers.ModelSerializer):
     class Meta:

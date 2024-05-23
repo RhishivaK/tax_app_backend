@@ -25,6 +25,7 @@ class UserListAPIView(generics.ListAPIView):
             Q(pan__contains=q)
         )
 
+
 class UserViewSet(viewsets.ViewSet):
     def create(self, request):
         serializer = UserCreateSerializer(data=request.data)

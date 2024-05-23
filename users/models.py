@@ -15,6 +15,16 @@ class User(AbstractBaseUser):
         ('married', 'Married'),
         ('divorced', 'Divorced')
     ]
+
+    PROVINCE_CHOICES = [
+        ('Koshi', 'Koshi'),
+        ('Madesh', 'Madesh'),
+        ('Bagmati', 'Bagmati'),
+        ('Gandaki', 'Gandaki'),
+        ('Lumbini', 'Lumbini'),
+        ('Karnali', 'Karnali'),
+        ('Sudurpaschim', 'Sudurpaschim'),
+    ]
     first_name = models.CharField(max_length=200)
     middle_name = models.CharField(max_length=200, null=True, blank=True, default='')
     last_name = models.CharField(max_length=200)
@@ -27,6 +37,9 @@ class User(AbstractBaseUser):
     maritial_status = models.CharField(max_length=20, choices=MARITIAL_STATUS_CHOICES)
     role = models.CharField(max_length=15, choices=ROLE_CHOICES, default='general')
     reward_points = models.DecimalField(default=0, max_digits=10, decimal_places=2)
+    province = models.CharField(max_length=50, blank=True, choices=PROVINCE_CHOICES)
+    address = models.CharField(max_length=255, blank=True)
+    city = models.CharField(max_length=2595, blank=True)
 
     objects = UserManager()
     REQUIRED_FIELDS = ['first_name', 'last_name', 'phone', 'pan', 'maritial_status']

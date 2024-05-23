@@ -29,7 +29,7 @@ class User(AbstractBaseUser):
     reward_points = models.DecimalField(default=0, max_digits=10, decimal_places=2)
 
     objects = UserManager()
-    REQUIRED_FIELDS = ['first_name', 'last_name', 'phone', 'pan']
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'phone', 'pan', 'maritial_status']
     USERNAME_FIELD = 'email'
 
     def __str__(self):

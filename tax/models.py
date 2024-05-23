@@ -47,24 +47,6 @@ class IncomeTaxRecord(models.Model):
         verbose_name = 'Income Tax Record'
         verbose_name_plural =  'Income Tax Records'
 
-from django.db import models
-
-from users.models import User
-
-# Create your models here.
-class FiscalYear(models.Model):
-    initiate_date = models.DateField(max_length=5)
-    meta = models.JSONField(null=True, blank=True)
-    label = models.CharField(max_length=20)
-    description = models.TextField(blank=True, null=True)
-
-    def __str__(self):
-        return self.initiate_date.__str__()
-
-    class Meta:
-        verbose_name = 'Fiscal Year'
-        verbose_name_plural = 'Fiscal Years'
-
 
 class CorporateTaxPolicy(models.Model):
     fiscal_year = models.ForeignKey(FiscalYear, null=False, on_delete=models.DO_NOTHING)

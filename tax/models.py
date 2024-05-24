@@ -8,6 +8,7 @@ class FiscalYear(models.Model):
     meta = models.JSONField(null=True, blank=True)
     label = models.CharField(max_length=20)
     description = models.TextField(blank=True, null=True)
+    created_at = models.DateField(auto_now=True)
 
     def __str__(self):
         return self.initiate_date.__str__()
@@ -20,6 +21,7 @@ class FiscalYear(models.Model):
 class IncomeTaxPolicy(models.Model):
     fiscal_year = models.ForeignKey(FiscalYear, null=False, on_delete=models.DO_NOTHING)
     meta = models.JSONField()
+    created_at = models.DateField(auto_now=True)
 
     def __str__(self):
         return f'Income Tax Policy - {self.fiscal_year.initiate_date.year}'

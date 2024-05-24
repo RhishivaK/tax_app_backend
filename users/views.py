@@ -23,7 +23,7 @@ class UserListAPIView(generics.ListAPIView):
             Q(email__contains=q) |
             Q(phone__contains=q) |
             Q(pan__contains=q)
-        )
+        ).order_by('-id')
 
 
 class UserViewSet(viewsets.ViewSet):

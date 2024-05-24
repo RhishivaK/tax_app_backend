@@ -2,6 +2,8 @@ from datetime import datetime
 
 from rest_framework import viewsets, generics
 
+from users.models import User
+
 from tax.models import IncomeTaxPolicy, IncomeTaxRecord
 from tax.serializers import (
     IncomeTaxRecordSerializer,
@@ -11,15 +13,14 @@ from tax.serializers import (
 )
 from utils import response
 
-
 class IncomeTaxPolicyListAPIView(generics.ListAPIView):
-    queryset = IncomeTaxPolicy.objects.all()
+    queryset = IncomeTaxPolicy.objects.all().order_by('-id')
     serializer_class = IncomeTaxPolicySerializer
     page_size_query_param = 'limit'
 
 
 class IncomeTaxListAPIView(generics.ListAPIView):
-    queryset = IncomeTaxRecord.objects.all()
+    queryset = IncomeTaxRecord.objects.all().order_by('-id')
     serializer_class = IncomeTaxRecordSerializer
     page_size_query_param = 'limit'
 
@@ -44,10 +45,13 @@ class IncomeTaxPolicyViewset(viewsets.ViewSet):
 
 
 class IncomeTaxViewset(viewsets.ViewSet):
-    def generate_record(self, request, pk):
-        record = IncomeTaxRecord()
-        record.save()
-        return record
+    def generate(self, request):
+        try:
+            user = User.objects.get(pan=request.data['pan'])
+        except User.DoesNotExist:
+            return response.not_found('record not found') 
+        year = datetime.now().year
+        return user
 
     def retrieve(self, request, pk):
         try:
@@ -65,7 +69,5 @@ class IncomeTaxViewset(viewsets.ViewSet):
         if serializer.is_valid():
             serializer.save()
             return response.success('status changed')
-
         return response.bad_request(serializer.errors)
-
 

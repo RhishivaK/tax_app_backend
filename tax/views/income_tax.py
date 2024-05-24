@@ -11,6 +11,7 @@ from tax.serializers import (
     IncomeTaxPolicySerializer,
     IncomeTaxPolicyCreateSerializer
 )
+from tax.utils import calculate_income_tax
 from utils import response
 
 class IncomeTaxPolicyListAPIView(generics.ListAPIView):
@@ -51,7 +52,9 @@ class IncomeTaxViewset(viewsets.ViewSet):
         except User.DoesNotExist:
             return response.not_found('record not found') 
         year = datetime.now().year
-        return user
+        policy = IncomeTaxPolicy.objects.all()[1]
+        amount = calculate_income_tax(policy.meta[user.maritial_status], user.annual_income)
+        return response.success('', {'amount': amount})
 
     def retrieve(self, request, pk):
         try:

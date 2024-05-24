@@ -1,3 +1,4 @@
+import decimal
 
 def calculate_income_tax(policy, annual_income):
     tax_amount = 0
@@ -8,7 +9,7 @@ def calculate_income_tax(policy, annual_income):
         else:
             taxable_amount = policy[key]['amount'] if annual_income > policy[key]['amount'] else annual_income
 
-        tax_amount += policy[key]['percent']/100.0 * taxable_amount
+        tax_amount += policy[key]['percent']/decimal.Decimal(100) * decimal.Decimal(taxable_amount)
         taxed_amount += taxable_amount
         if not policy[key]['amount'] or annual_income <= policy[key]['amount']: break
     return tax_amount

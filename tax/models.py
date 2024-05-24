@@ -10,6 +10,7 @@ class FiscalYear(models.Model):
     description = models.TextField(blank=True, null=True)
     created_at = models.DateField(auto_now=True)
 
+# insert into dbo.fiscal_year(initiate_date, meta, label, description) values ('2023-04-01', {}, "2079-80", "Fiscal Year 2079-80");
     def __str__(self):
         return self.initiate_date.__str__()
 

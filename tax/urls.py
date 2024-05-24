@@ -20,6 +20,7 @@ urlpatterns = [
     path('corporate-tax/record/list/', CorporateTaxListAPIView.as_view()),
     path('vehicle-tax/policy/', VehicleTaxPolicyViewset.as_view({'post': 'create'})),
     path('vehicle-tax/policy/list/', VehicleTaxPolicyListAPIView.as_view()),
-    path('vehicle-tax/record/list/', VehicleTaxListAPIView.as_view())
+    path('vehicle-tax/record/list/', VehicleTaxListAPIView.as_view()),
+    path('fiscal-year/policy/', IncomeTaxPolicyViewset.as_view({'post': 'create'})),
 ]
 
